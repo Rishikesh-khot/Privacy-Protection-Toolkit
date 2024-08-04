@@ -3,7 +3,9 @@
 ## Introduction
 The Privacy Protection Toolkit is a comprehensive tool designed to enhance your digital privacy and security. It provides functionalities like encryption and decryption, Wi-Fi security checks, TOR network integration, ad blocking, secure file deletion, and system information display. The toolkit is user-friendly, reliable, and compatible with all major operating systems (Windows, macOS, Linux).
 
+##
 ![Privacy Protection Toolkit](images/image_1.jpg)
+##
 
 ## Features
 - **Encryption & Decryption**: Secure your messages with advanced encryption.
