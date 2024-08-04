@@ -17,8 +17,8 @@ The Privacy Protection Toolkit is a comprehensive tool designed to enhance your 
 - **Cross-Platform**: Works seamlessly on Windows, macOS, and Linux.
 - **User-Friendly**: Simple and intuitive interface.
 - **Reliable**: Ensures consistent performance and security.
-
 ## Installation
+
 
 ### Prerequisites
 - Python 3.8+
