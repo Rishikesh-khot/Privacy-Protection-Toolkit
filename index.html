@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Protection Toolkit</title>
+    <style>
+        body {
+            background-color: black;
+            color: yellow;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+        }
+        h2 {
+            color: yellow;
+            margin-bottom: 10px;
+        }
+        .box {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            background-color: yellow;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        .output {
+            background-color: #222;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Privacy Protection Toolkit</h1>
+
+        <div class="box">
+            <h2>Encrypt Message</h2>
+            <input type="text" id="message-to-encrypt" placeholder="Enter message to encrypt">
+            <button onclick="encryptMessage()">Encrypt</button>
+            <div class="output" id="encrypted-message"></div>
+        </div>
+
+        <div class="box">
+            <h2>Decrypt Message</h2>
+            <input type="text" id="message-to-decrypt" placeholder="Enter encrypted message">
+            <button onclick="decryptMessage()">Decrypt</button>
+            <div class="output" id="decrypted-message"></div>
+        </div>
+
+        <div class="box">
+            <h2>System Info</h2>
+            <button onclick="getSystemInfo()">Get System Info</button>
+            <div class="output" id="system-info"></div>
+        </div>
+
+        <div class="box">
+            <h2>Wi-Fi Security</h2>
+            <button onclick="checkWiFiSecurity()">Check Wi-Fi Security</button>
+            <div class="output" id="wifi-info"></div>
+        </div>
+
+        <div class="box">
+            <h2>TOR Network</h2>
+            <button onclick="startTor()">Start TOR</button>
+            <button onclick="stopTor()">Stop TOR</button>
+            <div class="output" id="tor-status"></div>
+        </div>
+
+        <div class="box">
+            <h2>Ad Blocker</h2>
+            <button onclick="blockAds()">Block Ads</button>
+            <div class="output" id="ad-status"></div>
+        </div>
+
+        <div class="box">
+            <h2>Secure File Deletion</h2>
+            <input type="text" id="file-path" placeholder="Enter file path to delete">
+            <button onclick="secureDelete()">Delete File</button>
+            <div class="output" id="delete-status"></div>
+        </div>
+
+        <div class="box">
+            <h2>Check for Updates</h2>
+            <button onclick="checkUpdates()">Check Updates</button>
+            <div class="output" id="update-status"></div>
+        </div>
+
+        <div class="box">
+            <h2>Install Updates</h2>
+            <button onclick="installUpdates()">Install Updates</button>
+            <div class="output" id="install-status"></div>
+        </div>
+    </div>
+
+    <script>
+        async function encryptMessage() {
+            const message = document.getElementById('message-to-encrypt').value;
+            const response = await fetch('/encrypt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message })
+            });
+            const data = await response.json();
+            document.getElementById('encrypted-message').innerText = `Encrypted Message: ${data.encrypted_message}`;
+        }
+
+        async function decryptMessage() {
+            const message = document.getElementById('message-to-decrypt').value;
+            const response = await fetch('/decrypt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ encrypted_message: message })
+            });
+            const data = await response.json();
+            document.getElementById('decrypted-message').innerText = `Decrypted Message: ${data.decrypted_message}`;
+        }
+
+        async function getSystemInfo() {
+            const response = await fetch('/system_info');
+            const data = await response.json();
+            document.getElementById('system-info').innerText = data.info;
+        }
+
+        async function checkWiFiSecurity() {
+            const response = await fetch('/check_wifi_security');
+            const data = await response.json();
+            document.getElementById('wifi-info').innerText = data.wifi_security;
+        }
+
+        async function startTor() {
+            const response = await fetch('/start_tor', { method: 'POST' });
+            const data = await response.json();
+            document.getElementById('tor-status').innerText = data.status;
+        }
+
+        async function stopTor() {
+            const response = await fetch('/stop_tor', { method: 'POST' });
+            const data = await response.json();
+            document.getElementById('tor-status').innerText = data.status;
+        }
+
+        async function blockAds() {
+            const response = await fetch('/block_ads', { method: 'POST' });
+            const data = await response.json();
+            document.getElementById('ad-status').innerText = data.status;
+        }
+
+        async function secureDelete() {
+            const filePath = document.getElementById('file-path').value;
+            const response = await fetch('/secure_delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ file_path: filePath })
+            });
+            const data = await response.json();
+            document.getElementById('delete-status').innerText = data.status;
+        }
+
+        async function checkUpdates() {
+            const response = await fetch('/check_updates');
+            const data = await response.json();
+            document.getElementById('update-status').innerText = data.status;
+        }
+
+        async function installUpdates() {
+            const response = await fetch('/install_updates', { method: 'POST' });
+            const data = await response.json();
+            document.getElementById('install-status').innerText = data.status;
+        }
+    </script>
+</body>
+</html>
+
